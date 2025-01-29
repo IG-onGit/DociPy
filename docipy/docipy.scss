@@ -519,8 +519,8 @@
         align-items: center;
   
         > img {
-          width: 200px;
-          height: 200px;
+          width: 160px;
+          height: 160px;
           object-fit: cover;
           margin-bottom: 30px;
         }
@@ -528,22 +528,17 @@
         > h1 {
           color: var(--hint);
           font-size: 50px;
+          font-weight: normal;
           margin-bottom: 15px;
-          max-width: calc(100% - 15vw);
+          max-width: calc(100% - 9vw);
         }
   
         > h2 {
           font-size: 30px;
           font-weight: normal;
-          margin-bottom: 30px;
-          max-width: calc(100% - 15vw);
+          margin-bottom: 60px;
+          max-width: calc(100% - 9vw);
           line-height: 46px;
-        }
-  
-        > p {
-          font-size: 20px;
-          margin-bottom: 50px;
-          max-width: calc(100% - 15vw);
         }
   
         .buttons {
@@ -555,10 +550,10 @@
   
           > a {
             color: var(--hint);
-            font-size: 25px;
+            font-size: 22px;
             width: 200px;
             background: var(--main);
-            padding: 15px;
+            padding: 13px;
             border-radius: 10px;
             box-shadow: var(--shadow);
   
