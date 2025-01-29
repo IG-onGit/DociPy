@@ -19,6 +19,7 @@ class main:
         self.__annotations()
         self.doc = os.getcwd()
         self.app = self.__appDir()
+        args.pop(0)
         self.args = args
         self.menus = ""
         self.blocks = ""
@@ -294,9 +295,11 @@ class main:
             else:
                 content = self.__parseMarkdown(f"{hfolder}.md")
                 if hint in self.blockers:
-                    self.blocks += f'<div class="docipygroup {hint}-docipyblock hide"><section id="{hint}">{content}</section></div>'
+                    self.blocks += f'<div class="docipygroup {hint}-docipyblock hide"><section id="{hint}" class="hide">{content}</section></div>'
                 else:
-                    self.blocks += f'<section id="{hint}">{content}</section>'
+                    self.blocks += (
+                        f'<section id="{hint}" class="hide">{content}</section>'
+                    )
                 self.menus += (
                     f'<a href="#{hint}" class="{hint} {icon}">{label}{chevron}</a>'
                 )

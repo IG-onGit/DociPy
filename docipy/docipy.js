@@ -11,6 +11,27 @@ const searchIN = document.querySelector("header>div>input");
 const searchBT = document.querySelector("header>div>i");
 const searchGR = document.querySelectorAll(".docipygroup section");
 
+function addre(parent = null, query = "", name = "", remove = false) {
+  if (!parent || !query || !name) {
+    return false;
+  }
+
+  var items = parent.querySelectorAll(query);
+  if (!items) {
+    return false;
+  }
+
+  items.forEach((item) => {
+    if (remove) {
+      item.classList.remove(name);
+    } else {
+      item.classList.add(name);
+    }
+  });
+
+  return true;
+}
+
 function load() {
   var hash = window.location.hash.replaceAll("#", "");
   if (!hash) {
@@ -53,7 +74,11 @@ function load() {
           }
         });
       }
+
       block.classList.remove("hide");
+      addre(document, ".docipygroup section", "hide");
+      addre(block, ".docipygroup section", "hide", true);
+
       let hashset = window.location.hash.replaceAll("#", "");
       let sections = block.parentElement.querySelector(
         `.${item}-docipyblock>section`
@@ -189,6 +214,17 @@ function docipycopycode(element) {
   }, 2000);
 }
 
+function toCapitalCaseAll(str) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word and lowercase the rest
+    .join(" ");
+}
+
+function toCapitalCase(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 function searchMark(
   section = null,
   text = "",
@@ -230,16 +266,37 @@ function searchMark(
   } else {
     label.classList.add("docipyhighlight");
     if (!iterate && !marked) {
-      section.innerHTML = html.replaceAll(
-        text,
-        `<docipyhighlightstring>${text}</docipyhighlightstring>`
-      );
+      section.innerHTML = html
+        .replaceAll(
+          text.toUpperCase(),
+          `<docipyhighlightstring>${text.toUpperCase()}</docipyhighlightstring>`
+        )
+        .replaceAll(
+          toCapitalCase(text),
+          `<docipyhighlightstring>${toCapitalCase(
+            text
+          )}</docipyhighlightstring>`
+        )
+        .replaceAll(
+          toCapitalCaseAll(text),
+          `<docipyhighlightstring>${toCapitalCaseAll(
+            text
+          )}</docipyhighlightstring>`
+        )
+        .replaceAll(
+          text.toLowerCase(),
+          `<docipyhighlightstring>${text.toLowerCase()}</docipyhighlightstring>`
+        )
+        .replaceAll(
+          text,
+          `<docipyhighlightstring>${text}</docipyhighlightstring>`
+        );
     }
   }
 }
 
 searchBT.addEventListener("click", function (e) {
-  var text = searchIN.value.trim().toLowerCase();
+  var text = searchIN.value.toLowerCase().trim();
   let lbl = document.querySelectorAll("header nav .docipyhighlight");
   if (lbl) {
     lbl.forEach((l) => {
@@ -270,7 +327,7 @@ searchBT.addEventListener("click", function (e) {
       searchMark(section, searchIN.value, label);
       detcted = true;
     } else {
-      searchMark(section, searchIN.value, label, true, false);
+      searchMark(section, text, label, true, false);
     }
   });
 
