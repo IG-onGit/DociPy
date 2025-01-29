@@ -23,13 +23,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
 
+      - name: Create .pypirc file
+        run: |
+          mkdir -p ~/.pypirc
+          echo "[distutils]" > ~/.pypirc
+          echo "index-servers =" >> ~/.pypirc
+          echo "    pypi" >> ~/.pypirc
+          echo "[pypi]" >> ~/.pypirc
+          echo "username = ${PYPI_USERNAME}" >> ~/.pypirc
+          echo "password = ${PYPI_API_TOKEN}" >> ~/.pypirc
+
       - name: Build distribution package
         run: |
           python setup.py sdist bdist_wheel
 
       - name: Upload package to PyPI
         run: |
-          twine upload dist/* -u "${PYPI_USERNAME}" -p "${PYPI_API_TOKEN}"
-        env:
-          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+          twine upload dist/* --verbos
+
+      - name: Delete .pypirc file permanently
+        run: |
+          rm -f ~/.pypirc
