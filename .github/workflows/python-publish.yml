@@ -25,7 +25,9 @@ jobs:
 
       - name: Create .pypirc file
         run: |
-          mkdir -p ~/.pypirc
+          # Remove any existing directory at ~/.pypirc (if any)
+          rm -rf ~/.pypirc
+          # Create the .pypirc file
           echo "[distutils]" > ~/.pypirc
           echo "index-servers =" >> ~/.pypirc
           echo "    pypi" >> ~/.pypirc
