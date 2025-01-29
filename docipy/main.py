@@ -15,7 +15,8 @@ from colored import fg, bg, attr
 
 class main:
     ####################################################################################// Load
-    def __init__(self, args=[]):
+    def __init__(self):
+        args = sys.argv
         self.__annotations()
         self.doc = os.getcwd()
         self.app = self.__appDir()
@@ -364,4 +365,4 @@ class main:
 
 
 if __name__ == "__main__":
-    app = main(sys.argv)
+    app = main()
