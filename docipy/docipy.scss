@@ -169,7 +169,7 @@ header {
     padding: 30px 7px 80px 7px;
     overflow-y: auto;
 
-    p:after {
+    p::after, > a::after {
       margin-left: unset !important;
       margin-top: 5px;
       filter: brightness(150%) !important;
