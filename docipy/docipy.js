@@ -7,6 +7,9 @@ const atags = document.querySelectorAll("header a");
 const hint = document.querySelector("header>a>hint");
 const nava = document.querySelectorAll("nav>a");
 const code = document.querySelectorAll(".docipygroup>section pre>code");
+const searchIN = document.querySelector("header>div>input");
+const searchBT = document.querySelector("header>div>i");
+const searchGR = document.querySelectorAll(".docipygroup section");
 
 function load() {
   var hash = window.location.hash.replaceAll("#", "");
@@ -185,3 +188,99 @@ function docipycopycode(element) {
     element.classList.add("bi-clipboard");
   }, 2000);
 }
+
+function searchMark(
+  section = null,
+  text = "",
+  label = "",
+  unmark = false,
+  iterate = true
+) {
+  if (!section && !label) {
+    return false;
+  }
+
+  var hint = label.tagName == "P" ? "ref" : "href";
+  var buil = [];
+  var parts = label.getAttribute(hint).replaceAll("#", "").split("-");
+  if (iterate && parts) {
+    parts.forEach((x) => {
+      buil.push(x);
+      let item = document.querySelector(`header nav .${buil.join("-")}`);
+      if (item) {
+        searchMark(section, text, item, unmark, false);
+      }
+    });
+  }
+
+  let html = section.innerHTML;
+  let marked = html.includes(
+    `<docipyhighlightstring>${text}</docipyhighlightstring>`
+  );
+
+  if (!iterate) {
+    html = html
+      .replaceAll("<docipyhighlightstring>", "")
+      .replaceAll("</docipyhighlightstring>", "");
+  }
+
+  if (unmark) {
+    label.classList.remove("docipyhighlight");
+    section.innerHTML = html;
+  } else {
+    label.classList.add("docipyhighlight");
+    if (!iterate && !marked) {
+      section.innerHTML = html.replaceAll(
+        text,
+        `<docipyhighlightstring>${text}</docipyhighlightstring>`
+      );
+    }
+  }
+}
+
+searchBT.addEventListener("click", function (e) {
+  var text = searchIN.value.trim().toLowerCase();
+  let lbl = document.querySelectorAll("header nav .docipyhighlight");
+  if (lbl) {
+    lbl.forEach((l) => {
+      l.classList.remove("docipyhighlight");
+    });
+  }
+  if (!text) {
+    let all = document.querySelectorAll(".docipygroup>section");
+    if (all) {
+      all.forEach((m) => {
+        m.innerHTML = m.innerHTML
+          .replaceAll("<docipyhighlightstring>", "")
+          .replaceAll("</docipyhighlightstring>", "");
+      });
+    }
+    return true;
+  }
+
+  var detcted = false;
+  searchGR.forEach((section) => {
+    var divText = section.textContent.toLowerCase();
+    let name = `header nav .${section.id}`;
+    let label = document.querySelector(name);
+    if (!label) {
+      return false;
+    }
+    if (text !== "" && divText.includes(text)) {
+      searchMark(section, searchIN.value, label);
+      detcted = true;
+    } else {
+      searchMark(section, searchIN.value, label, true, false);
+    }
+  });
+
+  if (detcted && window.innerWidth < 1040) {
+    menu.click();
+  }
+});
+
+searchIN.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    searchBT.click();
+  }
+});

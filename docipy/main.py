@@ -349,7 +349,7 @@ class main:
             "bootstrap-icons.woff": "__storage__/bootstrap-icons.woff",
             "bootstrap-icons.woff2": "__storage__/bootstrap-icons.woff2",
             "bootstrap.icons.css": "__storage__/bootstrap.icons.css",
-            "docipy.js": "__storage__/docipy.js",
+            "!docipy.js": "__storage__/docipy.js",
             "!docipy.scss": "__storage__/docipy.css",
             "highlight.js": "__storage__/highlight.js",
             "logo.ico": "__storage__/logo.ico",
