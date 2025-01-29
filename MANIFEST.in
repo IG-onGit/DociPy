@@ -1,0 +1,11 @@
+include author.png
+include bootstrap-icons.woff
+include bootstrap-icons.woff2
+include bootstrap.icons.css
+include docipy.js
+include docipy.scss
+include highlight.js
+include logo.ico
+include robots.txt
+include sitemap.xml
+include template.html
