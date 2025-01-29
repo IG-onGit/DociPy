@@ -1,0 +1,5 @@
+# Allow all search engines to crawl the site
+User-agent: *
+
+# Sitemap location
+Sitemap: {{doc-url}}/__storage__/sitemap.xml
