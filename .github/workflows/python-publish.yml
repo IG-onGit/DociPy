@@ -30,3 +30,6 @@ jobs:
       - name: Upload package to PyPI
         run: |
           twine upload dist/* -u "${PYPI_USERNAME}" -p "${PYPI_API_TOKEN}" --verbose
+        env:
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
