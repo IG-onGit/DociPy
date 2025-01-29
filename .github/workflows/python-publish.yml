@@ -27,11 +27,8 @@ jobs:
         run: |
           # Remove any existing directory at ~/.pypirc (if any)
           rm -rf ~/.pypirc
-          # Create the .pypirc file
-          echo "[distutils]" > ~/.pypirc
-          echo "index-servers =" >> ~/.pypirc
-          echo "    pypi" >> ~/.pypirc
-          echo "[pypi]" >> ~/.pypirc
+          # Create the .pypirc file with correct format
+          echo "[pypi]" > ~/.pypirc
           echo "username = ${PYPI_USERNAME}" >> ~/.pypirc
           echo "password = ${PYPI_API_TOKEN}" >> ~/.pypirc
 
@@ -41,7 +38,10 @@ jobs:
 
       - name: Upload package to PyPI
         run: |
-          twine upload dist/* --verbos
+          twine upload dist/* -u "${PYPI_USERNAME}" -p "${PYPI_API_TOKEN}"
+        env:
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
 
       - name: Delete .pypirc file permanently
         run: |
