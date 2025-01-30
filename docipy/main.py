@@ -211,14 +211,14 @@ class main:
                     )
                     continue
 
-                if ismd:
-                    item = item[:-3].strip()
                 if item in [
-                    "__storage__",
                     ".git",
+                    "__storage__",
                     "README.md",
                 ]:
                     continue
+                if ismd:
+                    item = item[:-3].strip()
                 item_path = os.path.join(dir_path, item)
                 if os.path.isdir(item_path):
                     result[item] = scan(item_path)
