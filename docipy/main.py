@@ -27,7 +27,11 @@ class main:
         self.blockers = []
         self.template = open(f"{self.app}/template.html", "r").read()
 
+        if len(args) > 0 and args[0] == "reset":
+            self.reset()
+
         exists = os.path.exists(f"{self.doc}/__storage__/docipy.json")
+        self.lngs = self.__lngs()
         self.params = self.__config()
         self.menu = self.__menu()
 
@@ -65,6 +69,14 @@ class main:
         self.params = self.__config(True)
         print(fg("green") + " Configuration updated successfully" + attr("reset"))
         self.render()
+        pass
+
+    def reset(self):
+        menu = f"{self.doc}/menu.yaml"
+        if os.path.exists(menu):
+            os.remove(menu)
+
+        print(fg("green") + " Reset completed successfully" + attr("reset"))
         pass
 
     ####################################################################################// Helpers
@@ -143,7 +155,7 @@ class main:
     def __menu(self):
         file = f"{self.doc}/menu.yaml"
         if os.path.exists(file):
-            content = open(file, "r").read()
+            content = open(file, "r", encoding="utf-8", errors="replace").read()
             filtered = self.__filterYaml(content)
             return yaml.safe_load(filtered)
 
@@ -153,7 +165,7 @@ class main:
             .replace("\n\n\n", "\n\n")
             .replace("- $circle ", "- ")
         )
-        open(file, "w").write(content.replace("$", "*"))
+        open(file, "w", encoding="utf-8").write(content.replace("$", "*"))
 
         filtered = self.__filterYaml(content)
         return yaml.safe_load(filtered)
@@ -165,7 +177,7 @@ class main:
                 filtered = filtered.replace(f"${item}\n", f"${item}:\n")
                 parts = item.split(" ")
                 parts.pop(0)
-                ref = " ".join(parts).replace(" ", "_").lower()
+                ref = self.getRef(" ".join(parts))
                 self.blockers.append(ref)
 
         return filtered
@@ -174,13 +186,23 @@ class main:
         def scan(dir_path):
             result = {}
             for item in os.listdir(dir_path):
-                item = item.replace(".md", "").strip()
+                ismd = item[-3:] == ".md"
+                if not ismd and not os.path.isdir(f"{dir_path}/{item}"):
+                    continue
+                if re.search(r"[^\w\s\.]", item):
+                    print(
+                        fg("red")
+                        + f" File name contains special characters: "
+                        + attr("reset")
+                        + item
+                    )
+                    continue
+
+                if ismd:
+                    item = item[:-3].strip()
                 if item in [
                     "__storage__",
                     ".git",
-                    ".gitignore",
-                    "index.html",
-                    "robots.txt",
                 ]:
                     continue
                 item_path = os.path.join(dir_path, item)
@@ -198,6 +220,8 @@ class main:
             yaml_output = []
             indent = "  " * indent_level
             for key, value in d.items():
+                if not value:
+                    continue
                 if key is None:
                     for item in value:
                         if indent_level == 0:
@@ -244,6 +268,32 @@ class main:
         content = open(path, "r", encoding="utf-8", errors="replace").read()
         return markdown.markdown(content, extensions=["fenced_code"])
 
+    def __lngs(self):
+        folder = f"{self.app}/lng"
+        if not os.path.exists(folder):
+            return {}
+
+        collect = {}
+        files = os.listdir(folder)
+        for file in files:
+            content = open(
+                f"{folder}/{file}", "r", encoding="utf-8", errors="replace"
+            ).read()
+            collect[file.replace(".yaml", "")] = yaml.safe_load(content)
+
+        return collect
+
+    def getRef(self, hint=""):
+        for char in hint:
+            for lng in self.lngs:
+                if char not in self.lngs[lng]:
+                    continue
+                hint = hint.replace(char, self.lngs[lng][char])
+
+        hint = re.sub(r"[^\w\s]", "_", hint).replace(" ", "_")
+
+        return hint.strip().lower()
+
     def __render(self, items={}, parent="", folder=""):
         if not items:
             return False
@@ -259,8 +309,7 @@ class main:
             if "$" not in item:
                 label = item
                 icon = ""
-            ref = label.replace(" ", "_").lower()  # ENG
-            # ref = "a" + self.__rand()
+            ref = self.getRef(label)
             hint = f"{parent}-{ref}"
             hfolder = f"{folder}/{label}"
             if hfolder[0] == "/":

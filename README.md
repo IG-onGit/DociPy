@@ -30,7 +30,7 @@ The output will consist of **1** folder and **3** files in the root directory:
 The menu is mapped according to the directory tree. After adjusting your menu, don't forget to run this CLI command again `docipy` to update your documentation
 Change the `*circle` to any Bootstrap icon `*name` in the `menu.yaml` file that you think fits the topic
 
-> To reset the menu, simply delete the `menu.yaml` file and run the following CLI command: `docipy`
+> To reset the menu, simply run the following CLI command: `docipy reset`
 
 ## Config
 

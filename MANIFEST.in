@@ -9,3 +9,5 @@ include logo.ico
 include robots.txt
 include sitemap.xml
 include template.html
+lng/ge.yaml
+lng/ru.yaml

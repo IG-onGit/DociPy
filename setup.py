@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="docipy",
-    version="1.0.5",
+    version="1.0.6",
     packages=find_packages(),
     install_requires=[
         "datetime",
@@ -27,6 +27,8 @@ setup(
             "robots.txt",
             "sitemap.xml",
             "template.html",
+            "lng/ge.yaml",
+            "lng/ru.yaml",
         ],
     },
     include_package_data=True,
