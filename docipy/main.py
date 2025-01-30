@@ -27,6 +27,8 @@ class main:
         self.blockers = []
         self.template = open(f"{self.app}/template.html", "r").read()
 
+        if len(args) > 0 and args[0] == "help":
+            return self.help()
         if len(args) > 0 and args[0] == "reset":
             self.reset()
 
@@ -42,6 +44,16 @@ class main:
         pass
 
     ####################################################################################// Main
+    def help(self):
+        print(fg("yellow") + " docipy" + attr("reset") + " - Generate documentation")
+        print(
+            fg("yellow") + " docipy config" + attr("reset") + " - Update configuration"
+        )
+        print(fg("yellow") + " docipy reset" + attr("reset") + " - Reset menu")
+
+        print()
+        pass
+
     def render(self):
         self.__copyFiles(self.params)
 
