@@ -216,6 +216,7 @@ class main:
                 if item in [
                     "__storage__",
                     ".git",
+                    "README.md",
                 ]:
                     continue
                 item_path = os.path.join(dir_path, item)
@@ -373,7 +374,7 @@ class main:
             "",
             "-----------------------------------------------------------------------------",
             "",
-            "Project: DociPy - v1.0",
+            "Project: DociPy - v1.1",
             "Author: Irakli Gzirishvili",
             "Email: gziraklirex@gmail.com",
             "",

@@ -1,7 +1,7 @@
-# DociPy - v1.0
+# DociPy - v1.1
 
 - **Project**: DociPy
-- **Version**: 1.0
+- **Version**: 1.1
 - **Author**: Irakli Gzirishvili
 - **Email**: gziraklirex@gmail.com
 
