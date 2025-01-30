@@ -57,6 +57,7 @@ class main:
         open(file, "w", encoding="utf-8").write(parsed)
         print(fg("green") + " Documentation rendered successfully" + attr("reset"))
         print(fg("green") + " Please wait ..." + attr("reset"))
+        print()
 
         time.sleep(2)
         webbrowser.open(file)
@@ -96,7 +97,7 @@ class main:
         data = {
             "date": datetime.datetime.now().strftime("%Y-%m-%d"),
             "docipy-hint": "Build Docs With DociPy",
-            "docipy-page": "#",
+            "docipy-page": "https://github.com/IG-onGit/DociPy",
         }
 
         params = self.__params()
