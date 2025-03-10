@@ -213,6 +213,8 @@ class main:
 
                 if item in [
                     ".git",
+                    ".github",
+                    ".system",
                     "__storage__",
                     "README.md",
                 ]:
