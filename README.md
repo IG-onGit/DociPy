@@ -14,15 +14,15 @@ To use DociPy, follow these steps:
 1. Run this CLI command to install the Python module `pip install docipy`
 2. Navigate to any directory containing markdown `folder/files.md`
 3. Open the CLI in the selected directory and run this command `docipy`
-4. Update the documentation logo at `__storage__/logo.ico` and the author image at `__storage__/author.png`
+4. Update the documentation logo at `.storage/logo.ico` and the author image at `.storage/author.png`
 
-> Do not change the file names in the `__storage__` folder, but feel free to update the files if needed
+> Do not change the file names in the `.storage` folder, but feel free to update the files if needed
 
 ## Output
 
 The output will consist of **1** folder and **3** files in the root directory:
 
-- **__storage__**: A folder containing all required resources
+- **.storage**: A folder containing all required resources
 - **index.html**: The generated static HTML file
 - **menu.yaml**: The generated menu file, which you can adjust
 - **robots.txt**: File that controls the behavior of search engines

@@ -32,7 +32,7 @@ class main:
         if len(args) > 0 and args[0] == "reset":
             self.reset()
 
-        exists = os.path.exists(f"{self.doc}/__storage__/docipy.json")
+        exists = os.path.exists(f"{self.doc}/.storage/docipy.json")
         self.lngs = self.__lngs()
         self.params = self.__config()
         self.menu = self.__menu()
@@ -101,7 +101,7 @@ class main:
         return path
 
     def __config(self, rewrite=False):
-        file = f"{self.doc}/__storage__/docipy.json"
+        file = f"{self.doc}/.storage/docipy.json"
         if not rewrite and os.path.exists(file):
             content = open(file, "r").read()
             return json.loads(content)
@@ -215,7 +215,7 @@ class main:
                     ".git",
                     ".github",
                     ".system",
-                    "__storage__",
+                    ".storage",
                     "README.md",
                 ]:
                     continue
@@ -414,15 +414,15 @@ class main:
 
     def __copy(self):
         return {
-            "author.png": "__storage__/author.png",
-            "bootstrap-icons.woff": "__storage__/bootstrap-icons.woff",
-            "bootstrap-icons.woff2": "__storage__/bootstrap-icons.woff2",
-            "bootstrap.icons.css": "__storage__/bootstrap.icons.css",
-            "!docipy.js": "__storage__/docipy.js",
-            "!docipy.scss": "__storage__/docipy.css",
-            "highlight.js": "__storage__/highlight.js",
-            "logo.ico": "__storage__/logo.ico",
-            "!sitemap.xml": "__storage__/sitemap.xml",
+            "author.png": ".storage/author.png",
+            "bootstrap-icons.woff": ".storage/bootstrap-icons.woff",
+            "bootstrap-icons.woff2": ".storage/bootstrap-icons.woff2",
+            "bootstrap.icons.css": ".storage/bootstrap.icons.css",
+            "!docipy.js": ".storage/docipy.js",
+            "!docipy.scss": ".storage/docipy.css",
+            "highlight.js": ".storage/highlight.js",
+            "logo.ico": ".storage/logo.ico",
+            "!sitemap.xml": ".storage/sitemap.xml",
             "template.html": "index.html",
             "!robots.txt": "robots.txt",
             # "": "",
