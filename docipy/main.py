@@ -64,6 +64,14 @@ class main:
         self.__render(self.menu)
         self.params["menus"] = self.menus
         self.params["blocks"] = self.blocks
+
+        if "background-image" in self.params and self.params[
+            "background-image"
+        ].strip() not in ["", "#"]:
+            self.params["background-image"] = (
+                f'style="background-image: url({self.params["background-image"]});background-size: cover;background-position: center;"'
+            )
+
         parsed = self.__parseTemplate(self.template, self.params)
 
         open(file, "w", encoding="utf-8").write(parsed)
@@ -152,7 +160,7 @@ class main:
     def __input(self, rewrite=False, key="", hint="", must=False, default=""):
         if rewrite:
             value = input(fg("yellow") + f" {hint}: " + attr("reset"))
-            if not value:
+            if not value and key in self.params:
                 value = self.params[key]
             return value
 
@@ -404,6 +412,7 @@ class main:
             "button1-link": "Button 1 Link | #docipy",
             "button2-name": "Button 2 Name | Download",
             "button2-link": "Button 2 Link | #",
+            "background-image": "Background Image URL",
             "main-color": "Main Color | #604384",
             "main-dark": "Dark Color | #222222",
             "googletag-script": "Google Tag (script)",
