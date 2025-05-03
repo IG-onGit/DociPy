@@ -114,6 +114,11 @@ body > #version {
     }
   }
 
+  .old-version-number {
+    background: var(--search);
+    border: 1px solid var(--main);
+  }
+
   ul {
     padding: 3px 0px;
     display: none;
@@ -121,6 +126,10 @@ body > #version {
     background: var(--search);
     border: 1px solid var(--main);
     border-radius: 0px 0px 10px 10px !important;
+    border-top: unset;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    max-height: 200px;
     li {
       padding: 3px 8px;
       text-align: right;
@@ -700,6 +709,7 @@ body > .docipy-docipyblock {
 
           > div {
             text-align: left;
+            margin-right: 5px;
 
             p {
               color: var(--hint);
@@ -782,9 +792,6 @@ footer {
   body > #version {
     right: 70px;
     top: 21px;
-    span {
-      border: unset;
-    }
   }
 
   header {

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale:1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="robots" content="index, follow" />
-    <title>{{project}} - v{{version}}</title>
+    <title>{{project}} - Documentation</title>
 
     <!-- Basic Meta Tags -->
     <meta name="description" content="{{description}}" />
@@ -17,7 +17,7 @@
     <meta name="author" content="{{author}}" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{project}} - v{{version}}" />
+    <meta property="og:title" content="{{project}} - Documentation" />
     <meta property="og:description" content="{{description}}" />
     <meta property="og:url" content="{{doc-url}}" />
     <meta property="og:type" content="website" />
@@ -25,7 +25,7 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="{{project}} - v{{version}}" />
+    <meta name="twitter:title" content="{{project}} - Documentation" />
     <meta name="twitter:description" content="{{description}}" />
     <meta name="twitter:image" content="{{doc-url}}/.storage/logo.ico" />
 
@@ -41,7 +41,7 @@
 
     <!-- SEO Enhancements -->
     <meta name="theme-color" content="{{main-dark}}" />
-    <meta name="application-name" content="{{project}}" />
+    <meta name="application-name" content="{{project}} - Documentation" />
     <meta name="msapplication-TileColor" content="{{main-dark}}" />
 
     <!-- Copyrighted -->
@@ -52,8 +52,8 @@
       {
         "@context": "https://schema.org",
         "@type": "DocumentationPage",
-        "name": "{{project}}",
-        "headline": "{{project}} - v{{version}} Documentation",
+        "name": "{{project}} - Documentation",
+        "headline": "{{project}} - Documentation",
         "description": "{{description}}",
         "url": "{{doc-url}}",
         "author": {
@@ -100,9 +100,11 @@
   <body>
     <span class="bi bi-list"></span>
     <div id="version">
-      <span class="bi bi-chevron-down">v1.0.0</span>
+      <span desc="current-version-number" class="bi bi-chevron-down">v{{version}}</span>
       <ul>
+        <!-- VERSIONS-START -->
         {{versions}}
+        <!-- VERSIONS-END -->
       </ul>
     </div>
     <header>

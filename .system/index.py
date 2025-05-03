@@ -6,6 +6,7 @@ class index:
     def __init__(self, app="", cwd="", args=[]):
         self.app, self.cwd, self.args = app, cwd, args
         # ...
+        cli.dev = "-dev" in args
         self.menu = {}
         self.params = {}
         self.menus = ""
@@ -54,6 +55,46 @@ class index:
 
         return "Documentation rendered successfully"
 
+    def upgrade(self, number="", cmd=""):  # (number) - Raise version or set manually e.g. 1.0.3
+        if not cli.isFile(f"{self.cwd}/.storage/docipy.json"):
+            return "Project not detected!"
+
+        number = number.replace("-dev", "").strip()
+        self.params = self.__config()
+        current = self.params["version"]
+
+        if number and number == current:
+            return f"This is the current version: {current}!"
+
+        new = number if number else self.__raiseVersion(current)
+        if not new:
+            return "Could not set new version!"
+
+        index = f"{self.cwd}/index.html"
+        reserv = f"{self.cwd}/.version/{current}"
+        if not cli.isFile(reserv):
+            cli.trace("Reserving version: " + current)
+            os.makedirs(os.path.dirname(reserv), exist_ok=True)
+            content = (
+                cli.read(index)
+                .replace(".storage/", "../.storage/")
+                .replace(
+                    '<span desc="current-version-number" class="bi bi-chevron-down">',
+                    '<span class="old-version-number bi bi-chevron-down">',
+                )
+            )
+            cli.write(reserv, content)
+
+        cli.trace("Updating reserved versionings")
+        self.__updateReservedVersionings()
+
+        cli.trace("Upgrading to version: " + new)
+        self.params["version"] = new
+        cli.write(f"{self.cwd}/.storage/docipy.json", json.dumps(self.params))
+        self.render()
+
+        return f"Version rendered successfully: " + new
+
     def reform(self, cmd=""):  # Reform configuration
         if not cli.isFile(f"{self.cwd}/.storage/docipy.json"):
             return "Project not detected!"
@@ -65,6 +106,64 @@ class index:
         return "Configuration updated successfully"
 
     ####################################################################################// Helpers
+    def __raiseVersion(self, current="0.0.0"):
+        parts = current.split(".")
+        if len(parts) != 3:
+            cli.error("Version number must have three parts: major.minor.patch")
+            return False
+
+        major, minor, patch = map(int, parts)
+        patch += 1
+        if patch >= 10:
+            patch = 0
+            minor += 1
+            if minor >= 10:
+                minor = 0
+                major += 1
+
+        return f"{major}.{minor}.{patch}"
+
+    def __updateReservedVersionings(self):
+        folder = f"{self.cwd}/.version"
+        if not cli.isFolder(folder):
+            return False
+
+        versions = self.__collectVersions()
+        if not versions:
+            return False
+
+        for file in os.listdir(folder):
+            path = f"{folder}/{file}"
+            content = cli.read(path)
+            start = "<!-- VERSIONS-START -->"
+            end = "<!-- VERSIONS-END -->"
+            if start not in content or end not in content:
+                continue
+
+            cli.trace("Updating versioning for: " + file)
+            versioning = '<li class="latest-version">Latest</li>' + versions.replace(
+                f"<li>v{file}</li>", ""
+            )
+            replacement = f"{start}\n{versioning}\n        {end}"
+            content = re.sub(
+                rf"{start}(.*?){end}", replacement, content, flags=re.DOTALL
+            )
+            cli.write(path, content)
+
+        return True
+
+    def __collectVersions(self, aslist=False):
+        folder = f"{self.cwd}/.version"
+        if not cli.isFolder(folder):
+            return ""
+
+        collect = []
+        for version in os.listdir(folder):
+            collect.append(f"<li>v{version}</li>")
+        collect.reverse()
+
+        return collect if aslist else "".join(collect)
+
     def __config(self, rewrite=False):
         file = f"{self.cwd}/.storage/docipy.json"
         if not rewrite and cli.isFile(file):
@@ -222,8 +321,13 @@ class index:
         return final
 
     def __parseTemplate(self, content="", params={}):
+        params["versions"] = self.__collectVersions()
+
         for param in params:
-            content = content.replace("{{" + param + "}}", params[param])
+            value = params[param]
+            if param in ["linkedin", "x"] and value.strip() in ["", "#"]:
+                value = '" class="hide'
+            content = content.replace("{{" + param + "}}", value)
         return content
 
     def __rand(self, length=10):
