@@ -6,10 +6,7 @@
 
     <!-- Setup -->
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, height=device-height, initial-scale:1, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale:1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="robots" content="index, follow" />
     <title>{{project}} - v{{version}}</title>
@@ -36,20 +33,11 @@
     <link rel="canonical" href="{{doc-url}}" />
 
     <!-- Favicons -->
-    <link
-      rel="icon"
-      href="{{doc-url}}/.storage/logo.ico"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="{{doc-url}}/.storage/logo.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="{{doc-url}}/.storage/logo.ico" />
 
     <!-- Sitemaps -->
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="{{doc-url}}/.storage/sitemap.xml"
-    />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{doc-url}}/.storage/sitemap.xml" />
 
     <!-- SEO Enhancements -->
     <meta name="theme-color" content="{{main-dark}}" />
@@ -111,9 +99,15 @@
   </head>
   <body>
     <span class="bi bi-list"></span>
+    <div id="version">
+      <span class="bi bi-chevron-down">v1.0.0</span>
+      <ul>
+        {{versions}}
+      </ul>
+    </div>
     <header>
       <a href="#docipy">
-        <span>{{project}} <v>v{{version}}</v></span>
+        <span>{{project}}</span>
         <hint>Home</hint>
       </a>
       <div>
@@ -141,18 +135,9 @@
               </div>
             </div>
             <div class="links">
-              <a href="{{linkedin}}" target="_blank" style="background: #0a66c2"
-                >Follow on LinkedIn</a
-              >
-              <a
-                href="mailto:{{email}}"
-                style="background: #e35344"
-                target="_blank"
-                >Send Email</a
-              >
-              <a href="{{x}}" target="_blank" style="background: #373737"
-                >Follow on X</a
-              >
+              <a href="{{linkedin}}" target="_blank" style="background: #0a66c2">Follow on LinkedIn</a>
+              <a href="mailto:{{email}}" style="background: #e35344" target="_blank">Send Email</a>
+              <a href="{{x}}" target="_blank" style="background: #373737">Follow on X</a>
             </div>
           </div>
         </div>
@@ -174,12 +159,7 @@
       </div>
       <div>
         <p>Powered by DociPy</p>
-        <a
-          href="{{docipy-page}}"
-          target="_blank"
-          class="bi bi-arrow-up-right-circle"
-          >{{docipy-hint}}</a
-        >
+        <a href="{{docipy-page}}" target="_blank" class="bi bi-arrow-up-right-circle">{{docipy-hint}}</a>
         {{copyrighted-badge}}
       </div>
     </footer>

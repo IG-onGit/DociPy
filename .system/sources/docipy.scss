@@ -89,6 +89,58 @@ body > span {
   }
 }
 
+body > #version {
+  position: fixed;
+  display: block;
+  right: 15px;
+  top: 15px;
+  font-size: 18px;
+  z-index: 100;
+
+  span {
+    transition: unset;
+    display: block;
+    border-radius: 10px;
+    background: var(--main);
+    filter: brightness(150%);
+    padding: 3px 10px 3px 8px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+    &:before {
+      font-size: 12px;
+      margin-right: 5px;
+    }
+  }
+
+  ul {
+    padding: 3px 0px;
+    display: none;
+    list-style: none;
+    background: var(--search);
+    border: 1px solid var(--main);
+    border-radius: 0px 0px 10px 10px !important;
+    li {
+      padding: 3px 8px;
+      text-align: right;
+      cursor: pointer;
+      &:hover {
+        color: var(--main);
+      }
+    }
+  }
+}
+
+body > .versions-open {
+  span {
+    border-radius: 10px 10px 0px 0px !important;
+  }
+  ul {
+    display: block !important;
+  }
+}
+
 header {
   position: fixed;
   display: flex;
@@ -566,13 +618,7 @@ body > .docipy-docipyblock {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(
-      180deg,
-      var(--background),
-      var(--footer),
-      var(--section),
-      var(--main2)
-    );
+    background: linear-gradient(180deg, var(--background), var(--footer), var(--section), var(--main2));
     cursor: default;
 
     > div {
@@ -733,6 +779,14 @@ footer {
     display: flex;
   }
 
+  body > #version {
+    right: 70px;
+    top: 21px;
+    span {
+      border: unset;
+    }
+  }
+
   header {
     position: fixed;
     top: 0px;
@@ -740,7 +794,7 @@ footer {
     width: 100%;
 
     > a {
-      padding: 10px 70px 10px 15px;
+      padding: 10px 160px 10px 15px;
     }
 
     nav {

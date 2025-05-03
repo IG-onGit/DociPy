@@ -10,6 +10,14 @@ const code = document.querySelectorAll(".docipygroup>section pre>code");
 const searchIN = document.querySelector("header>div>input");
 const searchBT = document.querySelector("header>div>i");
 const searchGR = document.querySelectorAll(".docipygroup section");
+const vers = document.querySelector("#version");
+const version = document.querySelector("#version span");
+const versions = document.querySelector("#version ul");
+const versionsN = document.querySelectorAll("#version ul li");
+
+if (versionsN.length == 0) {
+  version.classList.remove("bi-chevron-down");
+}
 
 function addre(parent = null, query = "", name = "", remove = false) {
   if (!parent || !query || !name) {
@@ -80,9 +88,7 @@ function load() {
       addre(block, ".docipygroup section", "hide", true);
 
       let hashset = window.location.hash.replaceAll("#", "");
-      let sections = block.parentElement.querySelector(
-        `.${item}-docipyblock>section`
-      );
+      let sections = block.parentElement.querySelector(`.${item}-docipyblock>section`);
       let find = block.querySelector(`.${hashset}-docipyblock`);
       let tagset = document.querySelector(`.${hashset}`);
       if (!sections && !find && tagset && tagset.tagName == "P") {
@@ -109,14 +115,12 @@ menu.addEventListener("click", function (event) {
     body.style.overflowY = "hidden";
     header.style.height = "100%";
     nav.style.display = "flex";
-    this.style.right = "18px";
     this.classList.remove("bi-list");
     this.classList.add("bi-x-lg");
   } else {
     body.style.overflowY = "auto";
     header.style.height = "auto";
     nav.style.display = "none";
-    this.style.right = "10px";
     this.classList.remove("bi-x-lg");
     this.classList.add("bi-list");
   }
@@ -184,10 +188,7 @@ ptags.forEach((link) => {
 });
 
 code.forEach((x) => {
-  x.insertAdjacentHTML(
-    "beforebegin",
-    '<copy class="bi bi-clipboard" onclick="docipycopycode(this);"></copy>'
-  );
+  x.insertAdjacentHTML("beforebegin", '<copy class="bi bi-clipboard" onclick="docipycopycode(this);"></copy>');
 });
 
 function docipycopycode(element) {
@@ -225,13 +226,7 @@ function toCapitalCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-function searchMark(
-  section = null,
-  text = "",
-  label = "",
-  unmark = false,
-  iterate = true
-) {
+function searchMark(section = null, text = "", label = "", unmark = false, iterate = true) {
   if (!section && !label) {
     return false;
   }
@@ -250,14 +245,10 @@ function searchMark(
   }
 
   let html = section.innerHTML;
-  let marked = html.includes(
-    `<docipyhighlightstring>${text}</docipyhighlightstring>`
-  );
+  let marked = html.includes(`<docipyhighlightstring>${text}</docipyhighlightstring>`);
 
   if (!iterate) {
-    html = html
-      .replaceAll("<docipyhighlightstring>", "")
-      .replaceAll("</docipyhighlightstring>", "");
+    html = html.replaceAll("<docipyhighlightstring>", "").replaceAll("</docipyhighlightstring>", "");
   }
 
   if (unmark) {
@@ -267,30 +258,11 @@ function searchMark(
     label.classList.add("docipyhighlight");
     if (!iterate && !marked) {
       section.innerHTML = html
-        .replaceAll(
-          text.toUpperCase(),
-          `<docipyhighlightstring>${text.toUpperCase()}</docipyhighlightstring>`
-        )
-        .replaceAll(
-          toCapitalCase(text),
-          `<docipyhighlightstring>${toCapitalCase(
-            text
-          )}</docipyhighlightstring>`
-        )
-        .replaceAll(
-          toCapitalCaseAll(text),
-          `<docipyhighlightstring>${toCapitalCaseAll(
-            text
-          )}</docipyhighlightstring>`
-        )
-        .replaceAll(
-          text.toLowerCase(),
-          `<docipyhighlightstring>${text.toLowerCase()}</docipyhighlightstring>`
-        )
-        .replaceAll(
-          text,
-          `<docipyhighlightstring>${text}</docipyhighlightstring>`
-        );
+        .replaceAll(text.toUpperCase(), `<docipyhighlightstring>${text.toUpperCase()}</docipyhighlightstring>`)
+        .replaceAll(toCapitalCase(text), `<docipyhighlightstring>${toCapitalCase(text)}</docipyhighlightstring>`)
+        .replaceAll(toCapitalCaseAll(text), `<docipyhighlightstring>${toCapitalCaseAll(text)}</docipyhighlightstring>`)
+        .replaceAll(text.toLowerCase(), `<docipyhighlightstring>${text.toLowerCase()}</docipyhighlightstring>`)
+        .replaceAll(text, `<docipyhighlightstring>${text}</docipyhighlightstring>`);
     }
   }
 }
@@ -307,9 +279,7 @@ searchBT.addEventListener("click", function (e) {
     let all = document.querySelectorAll(".docipygroup>section");
     if (all) {
       all.forEach((m) => {
-        m.innerHTML = m.innerHTML
-          .replaceAll("<docipyhighlightstring>", "")
-          .replaceAll("</docipyhighlightstring>", "");
+        m.innerHTML = m.innerHTML.replaceAll("<docipyhighlightstring>", "").replaceAll("</docipyhighlightstring>", "");
       });
     }
     return true;
@@ -339,5 +309,32 @@ searchBT.addEventListener("click", function (e) {
 searchIN.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     searchBT.click();
+  }
+});
+
+version.addEventListener("click", function (e) {
+  if (versionsN.length == 0) return false;
+  if (vers.classList.contains("versions-open")) {
+    this.classList.add("bi-chevron-down");
+    this.classList.remove("bi-chevron-up");
+    vers.classList.remove("versions-open");
+  } else {
+    this.classList.remove("bi-chevron-down");
+    this.classList.add("bi-chevron-up");
+    vers.classList.add("versions-open");
+  }
+});
+
+versionsN.forEach((x) => {
+  x.addEventListener("click", function (e) {
+    var number = this.textContent.replaceAll("v", "").trim();
+    var hash = window.location.hash;
+    if (number) window.location = `.version/${number}${hash}`;
+  });
+});
+
+document.addEventListener("click", function (event) {
+  if (!vers.contains(event.target) && vers.classList.contains("versions-open")) {
+    version.click();
   }
 });
