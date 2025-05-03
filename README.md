@@ -1,11 +1,12 @@
-# DociPy - v1.1
+# DociPy v1.1.8
 
-- **Project**: DociPy
-- **Version**: 1.1
-- **Author**: Irakli Gzirishvili
-- **Email**: gziraklirex@gmail.com
+**Project**: DociPy
+<br>**Version**: 1.1.8
+<br>**OS**: OS Independent
+<br>**Author**: Irakli Gzirishvili
+<br>**Mail**: gziraklirex@gmail.com
 
-**DociPy** is a Python command-line interface (CLI) application designed to easily generate impressive static HTML documentation
+**DociPy** is a Python command-line interface application. DociPy is designed to easily generate impressive static HTML documentations
 
 ## Installation
 
@@ -13,7 +14,7 @@ To use DociPy, follow these steps:
 
 1. Run this CLI command to install the Python module `pip install docipy`
 2. Navigate to any directory containing markdown `folder/files.md`
-3. Open the CLI in the selected directory and run this command `docipy`
+3. Open the CLI in the selected directory and run this command `docipy render`
 4. Update the documentation logo at `.storage/logo.ico` and the author image at `.storage/author.png`
 
 > Do not change the file names in the `.storage` folder, but feel free to update the files if needed
@@ -27,16 +28,16 @@ The output will consist of **1** folder and **3** files in the root directory:
 - **menu.yaml**: The generated menu file, which you can adjust
 - **robots.txt**: File that controls the behavior of search engines
 
-The menu is mapped according to the directory tree. After adjusting your menu, don't forget to run this CLI command again `docipy` to update your documentation
+The menu is mapped according to the directory tree. After adjusting your menu, don't forget to run this CLI command again `docipy render` to update your documentation
 Change the `*circle` to any Bootstrap icon `*name` in the `menu.yaml` file that you think fits the topic
 
-> To reset the menu, simply run the following CLI command: `docipy reset`
+> To reset the menu, simply run the following CLI command: `docipy render -r`
 
 ## Config
 
 If you want to update any configuration parameters that were defined during the initial generation of the documentation:
 
-1. Run this CLI command to start updating configuration parameters `docipy config`
+1. Run this CLI command to start updating configuration parameters `docipy reform`
 2. Skip parameters by pressing `Enter` to leave their values unchanged
 3. Enter new values for any desired parameter and press `Enter`
 
@@ -69,7 +70,7 @@ These are the configuration parameters requested during the initial generation o
 
 Don't forget to update the `Documentation URL` before publishing:
 
-1. Run this CLI command to start updating configuration parameters `docipy config`
+1. Run this CLI command to start updating configuration parameters `docipy reform`
 2. Skip other parameters by pressing `Enter` to leave their values unchanged
 3. Enter `Documentation URL` value `e.g https://example.com` and press `Enter`
 

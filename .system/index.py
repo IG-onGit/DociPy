@@ -1,65 +1,38 @@
-import os
-import re
-import sys
-import time
-import json
-import yaml
-import string
-import random
-import shutil
-import datetime
-import markdown
-import webbrowser
-from colored import fg, bg, attr
+from imports import *
 
 
-class main:
+class index:
     ####################################################################################// Load
-    def __init__(self):
-        args = sys.argv
-        self.__annotations()
-        self.doc = os.getcwd()
-        self.app = self.__appDir()
-        args.pop(0)
-        self.args = args
+    def __init__(self, app="", cwd="", args=[]):
+        self.app, self.cwd, self.args = app, cwd, args
+        # ...
+        self.menu = {}
+        self.params = {}
         self.menus = ""
         self.blocks = ""
         self.blockers = []
-        self.template = open(f"{self.app}/template.html", "r").read()
-
-        if len(args) > 0 and args[0] == "help":
-            return self.help()
-        if len(args) > 0 and args[0] == "reset":
-            self.reset()
-
-        exists = os.path.exists(f"{self.doc}/.storage/docipy.json")
+        self.template = cli.read(f"{self.app}/.system/sources/template.html")
         self.lngs = self.__lngs()
-        self.params = self.__config()
-        self.menu = self.__menu()
+        pass
 
-        if len(args) > 0 and args[0] == "config":
-            return self.config(exists)
-
-        self.render()
+    def __exit__(self):
+        # ...
         pass
 
     ####################################################################################// Main
-    def help(self):
-        print(fg("yellow") + " docipy" + attr("reset") + " - Generate documentation")
-        print(
-            fg("yellow") + " docipy config" + attr("reset") + " - Update configuration"
-        )
-        print(fg("yellow") + " docipy reset" + attr("reset") + " - Reset menu")
+    def render(self, reset="", cmd=""):  # (-r) - Render docs. Add "-r" to reset menu
+        menu = f"{self.cwd}/menu.yaml"
+        if reset.strip() == "-r" and cli.isFile(menu):
+            os.remove(menu)
+            self.menu = self.__menu()
 
-        print()
-        pass
-
-    def render(self):
+        self.params = self.__config()
+        self.menu = self.__menu()
         self.__copyFiles(self.params)
 
-        file = f"{self.doc}/index.html"
-        if not os.path.exists(file):
-            return False
+        file = f"{self.cwd}/index.html"
+        if not cli.isFile(file):
+            return "Invalid index file!"
 
         self.__render(self.menu)
         self.params["menus"] = self.menus
@@ -73,45 +46,29 @@ class main:
             )
 
         parsed = self.__parseTemplate(self.template, self.params)
+        cli.write(file, parsed)
 
-        open(file, "w", encoding="utf-8").write(parsed)
-        print(fg("green") + " Documentation rendered successfully" + attr("reset"))
-        print(fg("green") + " Please wait ..." + attr("reset"))
-        print()
-
+        cli.hint("Opening the page ...")
         time.sleep(2)
         webbrowser.open(file)
-        pass
 
-    def config(self, exists=True):
-        if not exists:
-            return False
+        return "Documentation rendered successfully"
 
+    def reform(self, cmd=""):  # Reform configuration
+        if not cli.isFile(f"{self.cwd}/.storage/docipy.json"):
+            return "Project not detected!"
+
+        self.params = self.__config()
         self.params = self.__config(True)
-        print(fg("green") + " Configuration updated successfully" + attr("reset"))
         self.render()
-        pass
 
-    def reset(self):
-        menu = f"{self.doc}/menu.yaml"
-        if os.path.exists(menu):
-            os.remove(menu)
-
-        print(fg("green") + " Reset completed successfully" + attr("reset"))
-        pass
+        return "Configuration updated successfully"
 
     ####################################################################################// Helpers
-    def __appDir(self):
-        path = os.path.dirname(os.path.realpath(__file__))
-        if not os.path.exists(path):
-            print(f"Invalid path: {path}")
-            sys.exit()
-        return path
-
     def __config(self, rewrite=False):
-        file = f"{self.doc}/.storage/docipy.json"
-        if not rewrite and os.path.exists(file):
-            content = open(file, "r").read()
+        file = f"{self.cwd}/.storage/docipy.json"
+        if not rewrite and cli.isFile(file):
+            content = cli.read(file)
             return json.loads(content)
 
         data = {
@@ -135,58 +92,51 @@ class main:
         print()
 
         os.makedirs(os.path.dirname(file), exist_ok=True)
-        open(file, "w").write(json.dumps(data))
+        cli.write(file, json.dumps(data))
 
         return data
 
     def __copyFiles(self, params={}):
         items = self.__copy()
         for item in items:
-            path = f"{self.app}/{item}"
-            new = f"{self.doc}/{items[item]}"
+            path = f"{self.app}/.system/sources/{item}"
+            new = f"{self.cwd}/{items[item]}"
 
             if item[0] == "!":
-                path = f"{self.app}/{item[1:]}"
-            elif os.path.exists(new):
+                path = f"{self.app}/.system/sources/{item[1:]}"
+            elif cli.isFile(new):
                 continue
             else:
                 shutil.copy(path, new)
                 continue
 
-            content = open(path, "r", encoding="utf-8", errors="replace").read()
+            content = cli.read(path)
             parsed = self.__parseTemplate(content, params)
-            open(new, "w", encoding="utf-8").write(parsed)
+            cli.write(new, parsed)
 
     def __input(self, rewrite=False, key="", hint="", must=False, default=""):
-        if rewrite:
-            value = input(fg("yellow") + f" {hint}: " + attr("reset"))
-            if not value and key in self.params:
-                value = self.params[key]
-            return value
+        if not rewrite:
+            value = cli.input(hint, must).strip()
+            return value if value else default
 
-        value = ""
-        while not value:
-            value = input(fg("yellow") + f" {hint}: " + attr("reset"))
-            if not must:
-                if not value:
-                    return default
-                return value
-        return value
+        value = cli.input(hint).strip()
+        return value if value else self.params[key]
 
     def __menu(self):
-        file = f"{self.doc}/menu.yaml"
-        if os.path.exists(file):
-            content = open(file, "r", encoding="utf-8", errors="replace").read()
+        file = f"{self.cwd}/menu.yaml"
+        if cli.isFile(file):
+            content = cli.read(file)
             filtered = self.__filterYaml(content)
             return yaml.safe_load(filtered)
 
         content = (
-            self.__yamlDir(self.doc)
+            self.__yamlDir(self.cwd)
             .replace("\n\n", "\n")
             .replace("\n\n\n", "\n\n")
             .replace("- $circle ", "- ")
         )
-        open(file, "w", encoding="utf-8").write(content.replace("$", "*"))
+
+        cli.write(file, content.replace("$", "*"))
 
         filtered = self.__filterYaml(content)
         return yaml.safe_load(filtered)
@@ -211,12 +161,7 @@ class main:
                 if not ismd and not os.path.isdir(f"{dir_path}/{item}"):
                     continue
                 if re.search(r"[^\w\s\.]", item):
-                    print(
-                        fg("red")
-                        + f" File name contains special characters: "
-                        + attr("reset")
-                        + item
-                    )
+                    cli.error("File name contains special characters: " + item)
                     continue
 
                 if item in [
@@ -285,24 +230,22 @@ class main:
         return "".join(random.choices(string.ascii_letters, k=length)).lower()
 
     def __parseMarkdown(self, path=""):
-        path = os.path.join(self.doc, path)
-        if not os.path.exists(path):
+        path = os.path.join(self.cwd, path)
+        if not cli.isFile(path):
             return "..."
 
-        content = open(path, "r", encoding="utf-8", errors="replace").read()
+        content = cli.read(path)
         return markdown.markdown(content, extensions=["fenced_code"])
 
     def __lngs(self):
-        folder = f"{self.app}/lng"
-        if not os.path.exists(folder):
+        folder = f"{self.app}/.system/sources/lng"
+        if not cli.isFolder(folder):
             return {}
 
         collect = {}
         files = os.listdir(folder)
         for file in files:
-            content = open(
-                f"{folder}/{file}", "r", encoding="utf-8", errors="replace"
-            ).read()
+            content = cli.read(f"{folder}/{file}")
             collect[file.replace(".yaml", "")] = yaml.safe_load(content)
 
         return collect
@@ -359,11 +302,8 @@ class main:
                     f'<p ref="{hint}" class="{hint} {icon}">{label}{chevron}</p>'
                 )
                 self.menus += f'<ul class="{hint}-docipymenu hide">'
-                # if blocked:
-                #     self.blockers.append(ref)
                 self.blocks += f'<div class="docipygroup {hint}-docipyblock hide">'
                 self.__render(items[item], hint, hfolder)
-                # if blocked:
                 self.blocks += "</div>"
                 self.menus += "</ul>"
             else:
@@ -377,22 +317,6 @@ class main:
                 self.menus += (
                     f'<a href="#{hint}" class="{hint} {icon}">{label}{chevron}</a>'
                 )
-        pass
-
-    def __annotations(self):
-        hint = (
-            "",
-            "-----------------------------------------------------------------------------",
-            "",
-            "Project: DociPy - v1.1",
-            "Author: Irakli Gzirishvili",
-            "Email: gziraklirex@gmail.com",
-            "",
-            "-----------------------------------------------------------------------------",
-            "",
-        )
-
-        print("\n".join(hint))
         pass
 
     def __params(self):
@@ -436,7 +360,3 @@ class main:
             "!robots.txt": "robots.txt",
             # "": "",
         }
-
-
-if __name__ == "__main__":
-    app = main()

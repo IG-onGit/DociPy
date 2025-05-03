@@ -1,5 +1,2 @@
-docipy/docipy-dev.bat
+__pycache__
 desktop.ini
-build
-dist
-docipy.egg-info
