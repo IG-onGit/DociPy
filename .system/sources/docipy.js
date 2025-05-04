@@ -331,17 +331,20 @@ versionsN.forEach((x) => {
     var hash = window.location.hash;
     var base = "";
     var href = window.location.href;
+    let protocol = window.location.protocol;
+    let sufix = protocol == "file:" ? ".html" : "";
     if (this.classList.contains("latest-version")) {
       let v = version.textContent.replace("v", "").trim();
-      let protocol = window.location.protocol;
       let prefix = protocol == "file:" ? "/index.html" : "";
-      window.location = href.replace(`/version/${v}`, `${prefix}`);
+      href = href.replace(`/version/${v}${sufix}`, `${prefix}`);
+      window.location.href = href.replace(`/version/${v}${sufix}`, `${prefix}`);
       return true;
     }
 
     if (href.includes("/version/")) base = href.split("/version/")[0] + "/";
     if (number) {
-      window.location = `${base}version/${number}${hash}`;
+      href = `${base}version/${number}${sufix}${hash}`;
+      window.location.href = `${base}version/${number}${sufix}${hash}`;
       return true;
     }
   });

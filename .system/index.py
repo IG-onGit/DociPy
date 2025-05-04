@@ -71,7 +71,7 @@ class index:
             return "Could not set new version!"
 
         index = f"{self.cwd}/index.html"
-        reserv = f"{self.cwd}/version/{current}"
+        reserv = f"{self.cwd}/version/{current}.html"
         if not cli.isFile(reserv):
             cli.trace("Reserving version: " + current)
             os.makedirs(os.path.dirname(reserv), exist_ok=True)
@@ -140,9 +140,10 @@ class index:
             if start not in content or end not in content:
                 continue
 
-            cli.trace("Updating versioning for: " + file)
+            hint = file.replace(".html", "")
+            cli.trace("Updating versioning for: " + hint)
             versioning = '<li class="latest-version">Latest</li>' + versions.replace(
-                f"<li>v{file}</li>", ""
+                f"<li>v{hint}</li>", ""
             )
             replacement = f"{start}\n{versioning}\n        {end}"
             content = re.sub(
@@ -159,7 +160,8 @@ class index:
 
         collect = []
         for version in os.listdir(folder):
-            collect.append(f"<li>v{version}</li>")
+            hint = version.replace(".html", "")
+            collect.append(f"<li>v{hint}</li>")
         collect.reverse()
 
         return collect if aslist else "".join(collect)

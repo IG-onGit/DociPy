@@ -1,7 +1,7 @@
-# DociPy v1.2.1
+# DociPy v1.2.2
 
 **Project**: DociPy
-<br>**Version**: 1.2.1
+<br>**Version**: 1.2.2
 <br>**OS**: OS Independent
 <br>**Author**: Irakli Gzirishvili
 <br>**Mail**: gziraklirex@gmail.com
