@@ -1,7 +1,7 @@
-# DociPy v1.2.0
+# DociPy v1.2.1
 
 **Project**: DociPy
-<br>**Version**: 1.2.0
+<br>**Version**: 1.2.1
 <br>**OS**: OS Independent
 <br>**Author**: Irakli Gzirishvili
 <br>**Mail**: gziraklirex@gmail.com
@@ -15,16 +15,17 @@ To use DociPy, follow these steps:
 1. Run this CLI command to install the Python module `pip install docipy`
 2. Navigate to any directory containing markdown `folder/files.md`
 3. Open the CLI in the selected directory and run this command `docipy render`
-4. Update the documentation logo at `.storage/logo.ico` and the author image at `.storage/author.png`
+4. Update the documentation logo at `assets/logo.ico` and the author image at `assets/author.png`
 5. Run `docipy upgrade` to auto-increase the version number, or `docipy upgrade (number)` to set it manually
 
-> Do not change the file names in the `.storage` folder, but feel free to update the files if needed
+> Do not change the file names in the `assets` folder, but feel free to update the files if needed
 
 ## Output
 
-The output will consist of **1** folder and **3** files in the root directory:
+The output will consist of **2** folders and **3** files in the root directory by default:
 
-- **.storage**: A folder containing all required resources
+- **assets**: A folder containing all required resources
+- **version**: A folder reserving previous versions
 - **index.html**: The generated static HTML file
 - **menu.yaml**: The generated menu file, which you can adjust
 - **robots.txt**: File that controls the behavior of search engines

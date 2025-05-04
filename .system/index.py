@@ -56,7 +56,7 @@ class index:
         return "Documentation rendered successfully"
 
     def upgrade(self, number="", cmd=""):  # (number) - Raise version or set manually e.g. 1.0.3
-        if not cli.isFile(f"{self.cwd}/.storage/docipy.json"):
+        if not cli.isFile(f"{self.cwd}/assets/docipy.json"):
             return "Project not detected!"
 
         number = number.replace("-dev", "").strip()
@@ -71,13 +71,13 @@ class index:
             return "Could not set new version!"
 
         index = f"{self.cwd}/index.html"
-        reserv = f"{self.cwd}/.version/{current}"
+        reserv = f"{self.cwd}/version/{current}"
         if not cli.isFile(reserv):
             cli.trace("Reserving version: " + current)
             os.makedirs(os.path.dirname(reserv), exist_ok=True)
             content = (
                 cli.read(index)
-                .replace(".storage/", "../.storage/")
+                .replace("assets/", "../assets/")
                 .replace(
                     '<span desc="current-version-number" class="bi bi-chevron-down">',
                     '<span class="old-version-number bi bi-chevron-down">',
@@ -90,13 +90,13 @@ class index:
 
         cli.trace("Upgrading to version: " + new)
         self.params["version"] = new
-        cli.write(f"{self.cwd}/.storage/docipy.json", json.dumps(self.params))
+        cli.write(f"{self.cwd}/assets/docipy.json", json.dumps(self.params))
         self.render()
 
         return f"Version rendered successfully: " + new
 
     def reform(self, cmd=""):  # Reform configuration
-        if not cli.isFile(f"{self.cwd}/.storage/docipy.json"):
+        if not cli.isFile(f"{self.cwd}/assets/docipy.json"):
             return "Project not detected!"
 
         self.params = self.__config()
@@ -124,7 +124,7 @@ class index:
         return f"{major}.{minor}.{patch}"
 
     def __updateReservedVersionings(self):
-        folder = f"{self.cwd}/.version"
+        folder = f"{self.cwd}/version"
         if not cli.isFolder(folder):
             return False
 
@@ -153,7 +153,7 @@ class index:
         return True
 
     def __collectVersions(self, aslist=False):
-        folder = f"{self.cwd}/.version"
+        folder = f"{self.cwd}/version"
         if not cli.isFolder(folder):
             return ""
 
@@ -165,7 +165,7 @@ class index:
         return collect if aslist else "".join(collect)
 
     def __config(self, rewrite=False):
-        file = f"{self.cwd}/.storage/docipy.json"
+        file = f"{self.cwd}/assets/docipy.json"
         if not rewrite and cli.isFile(file):
             content = cli.read(file)
             return json.loads(content)
@@ -267,7 +267,8 @@ class index:
                     ".git",
                     ".github",
                     ".system",
-                    ".storage",
+                    "assets",
+                    "version",
                     "README.md",
                 ]:
                     continue
@@ -451,15 +452,15 @@ class index:
 
     def __copy(self):
         return {
-            "author.png": ".storage/author.png",
-            "bootstrap-icons.woff": ".storage/bootstrap-icons.woff",
-            "bootstrap-icons.woff2": ".storage/bootstrap-icons.woff2",
-            "bootstrap.icons.css": ".storage/bootstrap.icons.css",
-            "!docipy.js": ".storage/docipy.js",
-            "!docipy.scss": ".storage/docipy.css",
-            "highlight.js": ".storage/highlight.js",
-            "logo.ico": ".storage/logo.ico",
-            "!sitemap.xml": ".storage/sitemap.xml",
+            "author.png": "assets/author.png",
+            "bootstrap-icons.woff": "assets/bootstrap-icons.woff",
+            "bootstrap-icons.woff2": "assets/bootstrap-icons.woff2",
+            "bootstrap.icons.css": "assets/bootstrap.icons.css",
+            "!docipy.js": "assets/docipy.js",
+            "!docipy.scss": "assets/docipy.css",
+            "highlight.js": "assets/highlight.js",
+            "logo.ico": "assets/logo.ico",
+            "!sitemap.xml": "assets/sitemap.xml",
             "template.html": "index.html",
             "!robots.txt": "robots.txt",
             # "": "",

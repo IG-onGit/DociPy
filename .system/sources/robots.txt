@@ -1,7 +1,7 @@
 User-agent: *
-Disallow: /.storage/
 Disallow: /.system/
-Disallow: /.version/
+Disallow: /assets/
+Disallow: /version/
 Allow: /
 
-Sitemap: {{doc-url}}/.storage/sitemap.xml
+Sitemap: {{doc-url}}/assets/sitemap.xml

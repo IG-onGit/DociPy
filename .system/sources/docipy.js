@@ -335,13 +335,13 @@ versionsN.forEach((x) => {
       let v = version.textContent.replace("v", "").trim();
       let protocol = window.location.protocol;
       let prefix = protocol == "file:" ? "/index.html" : "";
-      window.location = href.replace(`/.version/${v}`, `${prefix}`);
+      window.location = href.replace(`/version/${v}`, `${prefix}`);
       return true;
     }
 
-    if (href.includes("/.version/")) base = href.split("/.version/")[0] + "/";
+    if (href.includes("/version/")) base = href.split("/version/")[0] + "/";
     if (number) {
-      window.location = `${base}.version/${number}${hash}`;
+      window.location = `${base}version/${number}${hash}`;
       return true;
     }
   });
