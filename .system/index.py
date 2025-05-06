@@ -55,18 +55,21 @@ class index:
 
         return "Documentation rendered successfully"
 
-    def upgrade(self, number="", cmd=""):  # (number) - Raise version or set manually e.g. 1.0.3
+    def version(self, number="", cmd=""):  # (number) - Raise version or set manually e.g. 1.0.3
         if not cli.isFile(f"{self.cwd}/assets/docipy.json"):
             return "Project not detected!"
 
         number = number.replace("-dev", "").strip()
         self.params = self.__config()
-        current = self.params["version"]
 
+        if number and not SemVer.valid(number):
+            return "Invalid semantic version number!"
+
+        current = cli.value("version", self.params, "0.0.0")
         if number and number == current:
-            return f"This is the current version: {current}!"
+            return f'Version "{number}" is the current version!'
 
-        new = number if number else self.__raiseVersion(current)
+        new = number if number else SemVer.bump(current)
         if not new:
             return "Could not set new version!"
 
@@ -106,23 +109,6 @@ class index:
         return "Configuration updated successfully"
 
     ####################################################################################// Helpers
-    def __raiseVersion(self, current="0.0.0"):
-        parts = current.split(".")
-        if len(parts) != 3:
-            cli.error("Version number must have three parts: major.minor.patch")
-            return False
-
-        major, minor, patch = map(int, parts)
-        patch += 1
-        if patch >= 10:
-            patch = 0
-            minor += 1
-            if minor >= 10:
-                minor = 0
-                major += 1
-
-        return f"{major}.{minor}.{patch}"
-
     def __updateReservedVersionings(self):
         folder = f"{self.cwd}/version"
         if not cli.isFolder(folder):
@@ -332,9 +318,6 @@ class index:
                 value = '" class="hide'
             content = content.replace("{{" + param + "}}", value)
         return content
-
-    def __rand(self, length=10):
-        return "".join(random.choices(string.ascii_letters, k=length)).lower()
 
     def __parseMarkdown(self, path=""):
         path = os.path.join(self.cwd, path)

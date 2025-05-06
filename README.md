@@ -1,7 +1,7 @@
-# DociPy v1.2.2
+# DociPy v2.0.0
 
 **Project**: DociPy
-<br>**Version**: 1.2.2
+<br>**Version**: 2.0.0
 <br>**OS**: OS Independent
 <br>**Author**: Irakli Gzirishvili
 <br>**Mail**: gziraklirex@gmail.com
@@ -16,7 +16,7 @@ To use DociPy, follow these steps:
 2. Navigate to any directory containing markdown `folder/files.md`
 3. Open the CLI in the selected directory and run this command `docipy render`
 4. Update the documentation logo at `assets/logo.ico` and the author image at `assets/author.png`
-5. Run `docipy upgrade` to auto-increase the version number, or `docipy upgrade (number)` to set it manually
+5. Run `docipy version` to upgrade the version number, or `docipy version (number)` to set it manually
 
 > Do not change the file names in the `assets` folder, but feel free to update the files if needed
 
