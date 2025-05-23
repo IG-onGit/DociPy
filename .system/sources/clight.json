@@ -1,6 +1,6 @@
 {
     "Name": "DociPy",
-    "Version": "2.1.0",
+    "Version": "2.1.1",
     "Description": "DociPy is designed to easily generate impressive static HTML documentations",
     "Link": "https://github.com/IG-onGit/DociPy",
     "CMD": "docipy",

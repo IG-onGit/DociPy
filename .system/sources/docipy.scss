@@ -534,14 +534,15 @@ body .docipygroup {
     >.grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 20px;
 
       >div, >ul {
-        flex: 1 1 calc(33.333% - 10px);
+        flex: 1 1 calc(33.333% - 20px);
         background: var(--header);
         border-radius: var(--radius);
         padding: var(--margin);
         box-sizing: border-box;
+        margin-bottom: 0;
 
         >h4 {
           border-color: var(--desc);
@@ -556,7 +557,7 @@ body .docipygroup {
 
     @media (max-width: 1280px) {
       >.grid >div, >.grid >ul {
-        flex: 1 1 calc(50% - 10px);
+        flex: 1 1 calc(50% - 20px);
       }
     }
 
