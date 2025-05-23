@@ -531,6 +531,41 @@ body .docipygroup {
       }
     }
 
+    >.grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      >div, >ul {
+        flex: 1 1 calc(33.333% - 10px);
+        background: var(--header);
+        border-radius: var(--radius);
+        padding: var(--margin);
+        box-sizing: border-box;
+
+        >h4 {
+          border-color: var(--desc);
+        }
+
+        >li {
+          margin-left: calc(var(--margin) - 1px);
+          font-size: 15px;
+        }
+      }
+    }
+
+    @media (max-width: 1280px) {
+      >.grid >div, >.grid >ul {
+        flex: 1 1 calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 580px) {
+      >.grid >div, >.grid >ul {
+        flex: 1 1 100%;
+      }
+    }
+
     /* Additional padding for pre-formatted code */
     pre code {
       display: block;
