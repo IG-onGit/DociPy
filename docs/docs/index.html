@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DociPy CLI Documentation: Install, Commands, Config | DociPy</title>
+<meta name="description" content="Learn how to install DociPy, run docipy render, configure the generated site, manage versions and menus, and understand the files it outputs.">
+<meta name="keywords" content="docipy documentation, docipy render, markdown documentation generator, python cli, static html docs, docipy configuration, docipy install, pip install docipy, menu.yaml, docs versioning">
+<meta name="author" content="Irakli Gzirishvili">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#604384">
+<link rel="canonical" href="https://ig-ongit.github.io/DociPy/docs/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DociPy">
+<meta property="og:title" content="DociPy CLI Documentation: Install, Commands, Config | DociPy">
+<meta property="og:description" content="Learn how to install DociPy, run docipy render, configure the generated site, manage versions and menus, and understand the files it outputs.">
+<meta property="og:url" content="https://ig-ongit.github.io/DociPy/docs/">
+<meta property="og:image" content="https://ig-ongit.github.io/DociPy/assets/github.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="DociPy: Markdown folders in, a static docs site out">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DociPy CLI Documentation: Install, Commands, Config | DociPy">
+<meta name="twitter:description" content="Learn how to install DociPy, run docipy render, configure the generated site, manage versions and menus, and understand the files it outputs.">
+<meta name="twitter:image" content="https://ig-ongit.github.io/DociPy/assets/github.png">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "DociPy documentation",
+  "description": "Learn how to install DociPy, run docipy render, configure the generated site, manage versions and menus, and understand the files it outputs.",
+  "url": "https://ig-ongit.github.io/DociPy/docs/",
+  "image": "https://ig-ongit.github.io/DociPy/assets/github.png",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Irakli Gzirishvili",
+    "jobTitle": "Full-Stack Software Engineer",
+    "sameAs": [
+      "https://github.com/IG-onGit",
+      "https://www.linkedin.com/in/ig-link",
+      "https://x.com/IG_onX",
+      "https://www.linkedin.com/newsletters/creatron-7275978973124132864"
+    ]
+  }
+}</script>
+<script src="../assets/main.js" defer></script>
+</head>
+<body class="docs-page">
+<a class="skip" href="#main">Skip to content</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol><symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol><symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol><symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-tree" viewBox="0 0 24 24"><path d="M21 12h-8M21 6H8M21 18h-8M3 6v4c0 1.1.9 2 2 2h3M3 10v6c0 1.1.9 2 2 2h3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol><symbol id="i-twitter-x" viewBox="0 0 24 24"><path d="M18 3h3l-7.5 8.5L22 21h-6l-4.8-6L6 21H3l8-9.2L2.5 3h6.2l4.3 5.5z"/></symbol><symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol></svg>
+<header class="site-header">
+<div class="container">
+<a class="brand" href="../"><img src="../assets/logo.svg" alt="" width="36" height="36"><span>Doci<b>Py</b></span></a>
+<nav class="nav" id="site-nav" aria-label="Main">
+<a href="../#features">Features</a><a href="../#how">How it works</a><a href="../#usage">Usage</a><a href="../#faq">FAQ</a><a href="./">Docs</a>
+<a class="btn btn-ghost btn-sm" href="https://github.com/IG-onGit/DociPy" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="#i-github"/></svg> GitHub</a>
+</nav>
+<button class="burger" type="button" aria-controls="docs-nav" aria-expanded="false" aria-label="Open menu"><svg class="icon " aria-hidden="true"><use href="#i-menu"/></svg></button>
+</div>
+</header>
+<main id="main"><div class="container docs-layout">
+<aside class="sidebar" id="docs-nav" aria-label="Documentation sections"><nav aria-label="Sections"><h2>Getting started</h2><a href="#general" data-section="general">General</a><a href="#how-it-works" data-section="how-it-works">How it works</a><a href="#installation" data-section="installation">Installation</a><a href="#configuration" data-section="configuration">Configuration</a><h2>Reference</h2><a href="#commands" data-section="commands">Commands</a><a href="#menu" data-section="menu">Menu</a><a href="#output" data-section="output">Output</a><a href="#project-structure" data-section="project-structure">Project structure</a><h2>Project</h2><a href="#requirements" data-section="requirements">System requirements</a><a href="#license" data-section="license">License</a><a href="#author" data-section="author">About the author</a>
+<div class="mobile-only"><h2>More</h2><a href="../"><svg class="icon " aria-hidden="true"><use href="#i-home"/></svg> Back to home</a><a href="https://github.com/IG-onGit/DociPy" target="_blank" rel="noopener"><svg class="icon " aria-hidden="true"><use href="#i-github"/></svg> GitHub</a></div></nav></aside>
+<div class="doc-content">
+<article class="doc-section" id="general"><h1>General</h1>
+<p class="lead">DociPy is a Python command-line application that generates static HTML documentation from Markdown files.</p>
+<p>Point it at a folder of <code>.md</code> files, run <code>docipy render</code>, and it writes a documentation site you can open in a browser or publish on your own domain.</p>
+<h2>Why use it</h2>
+<ul><li>Folders become menu entries, so the structure of your files is your navigation.</li><li>The result is static HTML: no server, database or build pipeline to maintain.</li><li>Previous versions are reserved in a <code>version</code> folder when you raise the version number.</li><li>Search, copyable code blocks and syntax highlighting are built in.</li><li>Logo, colors, author card and main buttons are configurable.</li></ul>
+<div class="callout"><svg class="icon " aria-hidden="true"><use href="#i-info"/></svg><p>New here? Continue with How it works, then Installation.</p></div><div class="pager"><a class="btn btn-ghost next" href="#how-it-works" data-goto="how-it-works"><span><small>Next</small>How it works</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="how-it-works"><h1>How it works</h1>
+<p>Each <code>docipy render</code> runs the same pipeline in the folder where you start it:</p>
+<ol><li>Load the configuration from <code>assets/docipy.json</code>. On the first run DociPy asks for the values and saves them.</li><li>Scan the folder for Markdown files and sub-folders, and write the menu to <code>menu.yaml</code> (an existing <code>menu.yaml</code> is reused).</li><li>Convert every Markdown file to HTML (fenced code blocks are supported) and place it in its own section.</li><li>Fill the page template with your configuration, write <code>index.html</code>, copy missing assets and open the page in your browser.</li></ol>
+<pre><code data-lang="text" data-title="Data flow">my-docs/**/*.md ────────┐
+assets/docipy.json ──────┼──► docipy render ──► index.html
+menu.yaml (your edits) ──┘                      assets/  robots.txt</code></pre><div class="pager"><a class="btn btn-ghost prev" href="#general" data-goto="general"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>General</span></a><a class="btn btn-ghost next" href="#installation" data-goto="installation"><span><small>Next</small>Installation</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="installation"><h1>Installation</h1>
+<p>DociPy is distributed as a Python package. To use it:</p>
+<ol><li>Install the module.</li><li>Open any directory that contains Markdown files such as <code>folder/files.md</code>.</li><li>Open the CLI in that directory and render.</li><li>Update the documentation logo at <code>assets/logo.ico</code> and the author image at <code>assets/author.png</code>.</li><li>Run <code>docipy version</code> to raise the version number, or <code>docipy version 1.2.0</code> to set it manually.</li></ol>
+<pre><code data-lang="bash" data-title="Terminal">pip install docipy
+cd my-docs
+docipy render</code></pre>
+<div class="callout warn"><svg class="icon " aria-hidden="true"><use href="#i-alert"/></svg><p>Do not change the file names in the assets folder. You can update the files themselves.</p></div><div class="pager"><a class="btn btn-ghost prev" href="#how-it-works" data-goto="how-it-works"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>How it works</span></a><a class="btn btn-ghost next" href="#configuration" data-goto="configuration"><span><small>Next</small>Configuration</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="configuration"><h1>Configuration</h1>
+<p>The first <code>docipy render</code> asks for these parameters and stores them in <code>assets/docipy.json</code>. To change any of them later, run <code>docipy reform</code>, press <code>Enter</code> to keep a value, or type a new one.</p>
+<pre><code data-lang="json" data-title="assets/docipy.json (excerpt, example values)">{
+  "project": "My Project",
+  "version": "1.0.0",
+  "doc-url": ".",
+  "author": "Your Name",
+  "main-color": "#604384",
+  "main-dark": "#222222"
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Prompt</th><th>Key in <code>assets/docipy.json</code></th><th>Required</th><th>Default</th><th>Purpose</th></tr></thead><tbody><tr><td>Project</td><td><code>project</code></td><td>Yes</td><td>None</td><td>Name of the project</td></tr><tr><td>Version</td><td><code>version</code></td><td>Yes</td><td>None</td><td>Version of the project</td></tr><tr><td>Slogan</td><td><code>slogan</code></td><td>No</td><td><code>...</code></td><td>Slogan of the project</td></tr><tr><td>Description</td><td><code>description</code></td><td>No</td><td><code>...</code></td><td>Description of the project</td></tr><tr><td>Keywords</td><td><code>keywords</code></td><td>No</td><td>Empty</td><td>Keywords for search engines</td></tr><tr><td>Documentation URL</td><td><code>doc-url</code></td><td>No</td><td><code>.</code></td><td>URL of the live documentation domain. Use a dot for local versions</td></tr><tr><td>Author</td><td><code>author</code></td><td>Yes</td><td>None</td><td>Author of the project</td></tr><tr><td>Position</td><td><code>position</code></td><td>No</td><td><code>...</code></td><td>Author's position</td></tr><tr><td>Email</td><td><code>email</code></td><td>Yes</td><td>None</td><td>Author's email address</td></tr><tr><td>LinkedIn</td><td><code>linkedin</code></td><td>No</td><td><code>#</code></td><td>Author's LinkedIn profile URL</td></tr><tr><td>X</td><td><code>x</code></td><td>No</td><td><code>#</code></td><td>Author's X account URL</td></tr><tr><td>Button 1 Name</td><td><code>button1-name</code></td><td>No</td><td><code>Explore</code></td><td>Name of the first main button</td></tr><tr><td>Button 1 Link</td><td><code>button1-link</code></td><td>No</td><td><code>#docipy</code></td><td>URL for the first main button</td></tr><tr><td>Button 2 Name</td><td><code>button2-name</code></td><td>No</td><td><code>Download</code></td><td>Name of the second main button</td></tr><tr><td>Button 2 Link</td><td><code>button2-link</code></td><td>No</td><td><code>#</code></td><td>URL for the second main button</td></tr><tr><td>Background Image URL</td><td><code>background-image</code></td><td>No</td><td>Empty</td><td>Optional hero background image (asked for by the CLI)</td></tr><tr><td>Main Color</td><td><code>main-color</code></td><td>No</td><td><code>#604384</code></td><td>Main color for the documentation</td></tr><tr><td>Dark Color</td><td><code>main-dark</code></td><td>No</td><td><code>#222222</code></td><td>Darker variant of the main color</td></tr><tr><td>Google Tag (script)</td><td><code>googletag-script</code></td><td>No</td><td>Empty</td><td>Google tag script for analytics</td></tr><tr><td>Copyrighted Verification (meta)</td><td><code>copyrighted-meta</code></td><td>No</td><td>Empty</td><td>Meta tag for copyright verification</td></tr><tr><td>Copyrighted Badge (a, script)</td><td><code>copyrighted-badge</code></td><td>No</td><td>Empty</td><td>Link and script for the copyright badge</td></tr></tbody></table></div>
+<h2>Before you publish</h2>
+<p>Set the Documentation URL to your live address, for example <code>https://example.com</code>. For local versions it must be a dot (<code>.</code>).</p>
+<pre><code data-lang="bash" data-title="Terminal">docipy reform</code></pre><div class="pager"><a class="btn btn-ghost prev" href="#installation" data-goto="installation"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Installation</span></a><a class="btn btn-ghost next" href="#commands" data-goto="commands"><span><small>Next</small>Commands</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="commands"><h1>Commands</h1>
+<p>All commands run in the folder that holds your Markdown files.</p>
+<div class="table-wrap"><table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td><code>docipy render</code></td><td>Renders the documentation: loads or asks for the configuration, builds the menu, converts Markdown, writes <code>index.html</code> and opens it in your default browser.</td></tr><tr><td><code>docipy render -r</code></td><td>Renders after deleting <code>menu.yaml</code>, so the menu is rebuilt from the directory tree.</td></tr><tr><td><code>docipy version</code></td><td>Raises the version number, reserves the previous page in the <code>version</code> folder and renders again.</td></tr><tr><td><code>docipy version 1.0.3</code></td><td>Sets the version manually. It must be a valid semantic version and different from the current one.</td></tr><tr><td><code>docipy reform</code></td><td>Asks for every configuration parameter again, keeps values you skip, then renders.</td></tr></tbody></table></div>
+<div class="callout"><svg class="icon " aria-hidden="true"><use href="#i-info"/></svg><p><code>docipy version</code> and <code>docipy reform</code> need an existing project (an <code>assets/docipy.json</code> file). Otherwise DociPy answers: Project not detected!</p></div><div class="pager"><a class="btn btn-ghost prev" href="#configuration" data-goto="configuration"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Configuration</span></a><a class="btn btn-ghost next" href="#menu" data-goto="menu"><span><small>Next</small>Menu</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="menu"><h1>Menu</h1>
+<p>The menu is mapped from your directory tree and saved in <code>menu.yaml</code>. Edit the file, then run <code>docipy render</code> again to apply your changes.</p>
+<ul><li>Markdown files and folders become entries. Folders with entries inside become expandable groups.</li><li>Skipped on purpose: <code>README.md</code>, <code>assets</code>, <code>version</code>, <code>.git</code>, <code>.github</code> and <code>.system</code>.</li><li>File and folder names with special characters (anything except letters, digits, underscores, spaces and dots) are skipped with an error message.</li><li>Each page gets a link built from its name, for example <code>#getting_started</code> or <code>#guides-install</code>. Names written in Georgian or Russian are transliterated for these links.</li><li>Change an icon marker such as <code>*circle</code> to any Bootstrap icon <code>*name</code> that fits the topic.</li></ul>
+<pre><code data-lang="bash" data-title="Terminal"># rebuild menu.yaml from scratch
+docipy render -r</code></pre><div class="pager"><a class="btn btn-ghost prev" href="#commands" data-goto="commands"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Commands</span></a><a class="btn btn-ghost next" href="#output" data-goto="output"><span><small>Next</small>Output</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="output"><h1>Output</h1>
+<p>By default the output sits in the folder where you ran DociPy: two folders and three files.</p>
+<div class="table-wrap"><table><thead><tr><th>Item</th><th>Description</th></tr></thead><tbody><tr><td><code>assets/</code></td><td>Everything the page needs: styles, scripts, highlight.js, the Bootstrap icons font, <code>logo.ico</code>, <code>author.png</code>, <code>sitemap.xml</code> and <code>docipy.json</code>.</td></tr><tr><td><code>version/</code></td><td>Previous versions of the documentation (filled by <code>docipy version</code>).</td></tr><tr><td><code>index.html</code></td><td>The generated static page.</td></tr><tr><td><code>menu.yaml</code></td><td>The generated menu, which you can adjust.</td></tr><tr><td><code>robots.txt</code></td><td>Controls search engines. It disallows <code>/assets/</code> and <code>/version/</code> and points to the sitemap in <code>assets/</code>.</td></tr></tbody></table></div>
+<h2>What the page includes</h2>
+<ul><li>A collapsible side menu and a search box in the header.</li><li>A version switcher listing reserved versions.</li><li>A copy button on every code block, with highlight.js syntax coloring.</li><li>A mobile menu for small screens.</li><li>Meta tags, Open Graph and Twitter cards, a canonical URL, theme color and JSON-LD for search engines.</li></ul><div class="pager"><a class="btn btn-ghost prev" href="#menu" data-goto="menu"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Menu</span></a><a class="btn btn-ghost next" href="#project-structure" data-goto="project-structure"><span><small>Next</small>Project structure</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="project-structure"><h1>Project structure</h1>
+<p>The repository is small. The application lives in the <code>.system</code> folder and is built on the clight framework (it imports <code>clight</code> and declares the <code>docipy</code> command in <code>clight.json</code>).</p>
+<pre><code data-lang="text" data-title="DociPy repository">DociPy/
+├─ .github/workflows/publish.yml   publishes the package to PyPI
+├─ .system/
+│  ├─ index.py       render, version and reform commands
+│  ├─ imports.py     shared imports
+│  ├─ modules/
+│  └─ sources/       template.html, docipy.js, docipy.scss,
+│                    highlight.js, Bootstrap icons, logo.ico,
+│                    author.png, sitemap.xml, robots.txt, lng/
+├─ LICENSE
+└─ README.md</code></pre><div class="pager"><a class="btn btn-ghost prev" href="#output" data-goto="output"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Output</span></a><a class="btn btn-ghost next" href="#requirements" data-goto="requirements"><span><small>Next</small>System requirements</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="requirements"><h1>System requirements</h1>
+<h2>Running DociPy</h2>
+<div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Details</th></tr></thead><tbody><tr><td>Operating system</td><td>OS independent.</td></tr><tr><td>Python</td><td>Python 3 with pip. The repository does not state a minimum Python version.</td></tr><tr><td>Python packages</td><td><code>clight</code> and <code>markdown</code> (listed on PyPI). The source also imports <code>yaml</code> (PyYAML).</td></tr><tr><td>Browser</td><td>Any modern browser to view the result. DociPy opens it for you after rendering.</td></tr></tbody></table></div>
+<h2>Server or hosting</h2>
+<ul><li>None required. The output is static HTML and assets.</li></ul>
+<h2>Building from source</h2>
+<ul><li>The repository has no <code>setup.py</code> or <code>pyproject.toml</code>; the <code>.system</code> folder is the application.</li><li>Releases are published to PyPI by <code>.github/workflows/publish.yml</code>, which installs <code>clight</code> and runs <code>clight deploy</code> on a Windows runner using the <code>PYPI_USERNAME</code> and <code>PYPI_API_TOKEN</code> secrets.</li><li>Include <code>[!deploy]</code> in a commit message to skip that publish job.</li></ul><div class="pager"><a class="btn btn-ghost prev" href="#project-structure" data-goto="project-structure"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>Project structure</span></a><a class="btn btn-ghost next" href="#license" data-goto="license"><span><small>Next</small>License</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="license"><h1>License</h1>
+<p>DociPy is released under the MIT License. In plain English: you may use, copy, modify, merge, publish, distribute, sublicense and sell copies of the software, as long as the copyright and permission notice stay with it. The software comes without warranty.</p>
+<div class="license-box" role="region" aria-label="Full MIT license text" tabindex="0">MIT License
+
+Copyright (c) 2025 Irakli Gzirishvili
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</div>
+<p style="margin-top:16px"><a href="https://github.com/IG-onGit/DociPy/blob/main/LICENSE" target="_blank" rel="noopener">View LICENSE on GitHub</a></p><div class="pager"><a class="btn btn-ghost prev" href="#requirements" data-goto="requirements"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>System requirements</span></a><a class="btn btn-ghost next" href="#author" data-goto="author"><span><small>Next</small>About the author</span><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></a></div></article>
+<article class="doc-section" id="author"><h1>About the author</h1>
+<div class="author-card"><img src="../assets/Irakli%20Gzirishvili.png" alt="Irakli Gzirishvili" width="112" height="112">
+<div><h3>Irakli Gzirishvili <span style="color: var(--muted);font-weight: normal;">- From Georgia</span></h3><p>• AI &amp; Cloud Engineer<br>• AI Integration Manager<br>• Full-Stack Software Engineer<br>• MIT OSS Provider<br>• DevOps Engineer</p>
+<div class="author-links">
+<a class="btn btn-ghost btn-sm" href="https://github.com/IG-onGit" target="_blank" rel="me noopener"><svg class="icon " aria-hidden="true"><use href="#i-github"/></svg> github.com/IG-onGit</a>
+<a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/in/ig-link" target="_blank" rel="me noopener"><svg class="icon " aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn</a>
+<a class="btn btn-ghost btn-sm" href="https://x.com/IG_onX" target="_blank" rel="me noopener"><svg class="icon " aria-hidden="true"><use href="#i-twitter-x"/></svg> X</a>
+<a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/newsletters/creatron-7275978973124132864" target="_blank" rel="me noopener"><svg class="icon " aria-hidden="true"><use href="#i-book"/></svg> CreaTron newsletter</a>
+</div></div></div><div class="pager"><a class="btn btn-ghost prev" href="#license" data-goto="license"><svg class="icon " aria-hidden="true"><use href="#i-arrow-left"/></svg><span><small>Previous</small>License</span></a></div></article>
+</div>
+</div></main>
+<footer class="site-footer">
+<div class="container">
+<p style="margin:0">Copyright (c) 2025 Irakli Gzirishvili · MIT License</p>
+<nav aria-label="Footer"><a href="./">Documentation</a><a href="./#requirements">Requirements</a><a href="./#license">License</a><a href="https://github.com/IG-onGit/DociPy" target="_blank" rel="noopener">GitHub</a></nav>
+</div>
+</footer>
+</body>
+</html>
